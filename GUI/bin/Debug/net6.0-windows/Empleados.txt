@@ -1,6 +1,3 @@
-123;Yefry;4000;Activo
-1234;Rei;2434;Inactivo
-13123;FER;3232;Activo
-3213;Manu;2323;Inactivo
-asdads;sadas;1321;Activo
-112321;sdsdsdsss;22321;Activo
+123;sdaad;12332;Activo
+1232333;sdsad;21321;Activo
+12342;sdsad;12332;Activo

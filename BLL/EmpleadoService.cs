@@ -14,9 +14,14 @@ namespace BLL
             empleadoRepository = new EmpleadoRepository();
         }
 
-        public void GuardarEmpleado(Empleado empleado)
+        public bool GuardarEmpleado(Empleado empleado)
         {
-            empleadoRepository.GuardarEmpleado(empleado);
+            if(empleadoRepository.GuardarEmpleado(empleado))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public List<Empleado> ObtenerEmpleados()

@@ -16,11 +16,16 @@ namespace DAL
 
         }
 
-        public void GuardarEmpleado(Empleado empleado)
+        public bool GuardarEmpleado(Empleado empleado)
         {
+            if (ExisteEmpleado(empleado.Identificacion)) 
+            {
+                return false; 
+            }
             streamWriter = new StreamWriter("./Empleados.txt", true);
             streamWriter.WriteLine(empleado);
             streamWriter.Close();
+            return true;
         }
 
         public List<Empleado> ObtenerEmpleados()
@@ -28,8 +33,23 @@ namespace DAL
             return this.LeerArchivoEmpleados();
         }
 
+        private bool ExisteEmpleado(string identificacion)
+        {
+            List<Empleado> empleados = this.ObtenerEmpleados();
+
+            foreach(Empleado empleado in empleados)
+            {
+                if(empleado.Identificacion.Equals(identificacion))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private List<Empleado> LeerArchivoEmpleados()
         {
+            if (!File.Exists("./Empleados.txt")) { return new List<Empleado>(); }
             streamReader = new StreamReader("./Empleados.txt");
             List<Empleado> empleados = new List<Empleado>();
             string registro;
@@ -38,6 +58,11 @@ namespace DAL
             do
             {
                 registro = streamReader.ReadLine();
+                if (registro is null) 
+                {
+                    streamReader.Close();
+                    return new List<Empleado>(); 
+                }
                 campos = registro.Split(";");
                 Estado activo;
                 Estado inactivo;

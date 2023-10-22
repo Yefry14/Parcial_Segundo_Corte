@@ -36,7 +36,13 @@ namespace GUI
 
             Empleado empleado = new Empleado(this.inpt_identificacion.Text, this.inpt_nombre.Text, Decimal.Parse(this.inpt_salarioBase.Text), this.cmb_estado.Text);
 
-            empleadoService.GuardarEmpleado(empleado);
+            if(!empleadoService.GuardarEmpleado(empleado))
+            {
+                MessageBox.Show("El empleado ya existe.");
+                return;
+            }
+            
+            
             this.empleados = empleadoService.ObtenerEmpleados();
             dataGridView1.DataSource = this.empleados;
         }
